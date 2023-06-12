@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrapper{
+            width:500px;
+            height:500px;
+            background: yellow;
+            margin: auto;
+            position: relative; /*자식 때문에..*/
+            overflow: hidden;
+        }
+    </style>
+    <script src="../js/lib.js"></script>
+    <script>
+        let wrapper;
+        let ballArray=[];//생성되는 모든 볼을 담게 될 일차원 배열
+        let flag=true;
+
+    
+        
+
+      
+       
+
+        function createBall(){
+            let velX=getRandomByRange(1,20);
+            let velY=getRandomByRange(1,20);
+
+            ballArray.push(new Ball(velX, velY));
+        }
+
+        function init(){
+            wrapper = document.getElementById("wrapper");
+        }
+
+        function loop(){
+        
+            if(flag){
+                for(let i=0;i<ballArray.length;i++){
+                    ballArray[i].move();
+                }
+            }
+        }
+
+        addEventListener("load", function(){
+            init();
+            
+            setInterval("loop()", 50);
+
+            //키보드에 이벤트 연결 
+            document.body.addEventListener("keydown", function(){
+                console.log(event.keyCode);
+
+                if(event.keyCode==32){ //space bar 누르면..
+                    createBall();
+                }else if(event.keyCode==27){//esc 를 누르면...
+                    flag=!flag;
+                }
+            });
+
+        });
+    </script>
+</head>
+<body>
+    <div id="wrapper"></div>
+</body>
+</html>
